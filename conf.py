@@ -165,6 +165,9 @@ redirects = {
     "software/HowToWorkWithTheEpicsRepository":
         "../contributing/HowToWorkWithTheEpicsRepository.html",
 
+    "access-security/specifications":
+        "../appdevguide/AccessSecurity.html",
+
     #"appdevguide/*": "appdevguide/*",
 }
 html_logo = "images/EPICS_green_logo.svg"
