@@ -149,7 +149,10 @@ redirects = {
         "../pv-access/Normative-Types-Specification.html",
 
     "specs/IOCInit":
-        "../internal/IOCInit.html",
+        "../appdevguide/IOCInit.html",
+
+    "internal/IOCInit":
+        "../appdevguide/IOCInit.html",
 
     "appdevguide/EPICSBuildFacility":
         "../build-system/specifications.html",

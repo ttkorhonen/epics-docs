@@ -161,7 +161,6 @@ You may also directly use related links to see documents which match you the mos
    :caption: Internal
 
    internal/ca_protocol
-   internal/IOCInit
    Common Library C/C++ APIs <https://docs.epics-controls.org/projects/base/en/latest/libcom-api.html>
    IOC Database C/C++ APIs <https://docs.epics-controls.org/projects/base/en/latest/database-api.html>
 
