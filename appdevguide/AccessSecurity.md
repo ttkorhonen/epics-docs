@@ -177,30 +177,30 @@ the same as for database definitions.
 
 -  **UAG**: User Access Group. This is a list of user names that can have the access
    privilege. It may be empty; if UAG is not defined all users are allowed. A user name may appear in more than one UAG. To match, a user name must be identical to the user name
-   read by the CA client library running on the client machine. 
-   With pvAccess (QSRV) it is possible to define user roles that define the access rights for a group of users, without the need to list each user individually. 
+   read by the CA client library running on the client machine.
+   With pvAccess (QSRV) it is possible to define user roles that define the access rights for a group of users, without the need to list each user individually.
 -  **HAG**: Host Access Group. This is a list of host names. It may be
    empty; If HAG is not defined then all hosts are allowed. The same host name can appear in multiple HAGs. To match, a
    host name must match the host name read by the CA client library
    running on the client machine; both names are converted to lower case
-   before comparison. 
+   before comparison.
 -  **ASG**: An access security group. The group DEFAULT is a special case.
    If a member specifies a null group or a group which has no ASG
    definition then the member is assigned to the group DEFAULT.
 -  **INP\<index>** Index must have one of the values A to U. These are links to
-   input process variables whose value can be used in a CALC condition. 
-   These are just like the INP fields of a calculation record. 
-   It is necessary to define INP fields if a CALC field is defined 
+   input process variables whose value can be used in a CALC condition.
+   These are just like the INP fields of a calculation record.
+   It is necessary to define INP fields if a CALC field is defined
    in any RULE for the ASG.
--  **RULE** This defines access permissions for each security level. 
-   \<level\> *must* be 0 or 1. 
+-  **RULE** This defines access permissions for each security level.
+   \<level\> *must* be 0 or 1.
    The standard EPICS record types have all fields set
    to level 1 except for VAL, CMD (command), and RES (reset).
    Permission for a level 1 field implies permission for level 0 fields.
-   The permissions are NONE, READ, and WRITE. 
-   WRITE permission implies READ permission.  
-   An optional argument specifies if writes should be trapped. 
-   Trapping makes it possible for modules like caPutLog to log database put operations. 
+   The permissions are NONE, READ, and WRITE.
+   WRITE permission implies READ permission.
+   An optional argument specifies if writes should be trapped.
+   Trapping makes it possible for modules like caPutLog to log database put operations.
    If not specified the default is NOTRAPWRITE.
 
 -  **CALC** is just like the CALC field of a calculation record except
@@ -215,7 +215,7 @@ the same as for database definitions.
 **Semantics for unrecognised ACF file elements**
 
 To enable adding new elements to ACF files in new EPICS releases
-without breaking older clients that load those files, 
+without breaking older clients that load those files,
 elements that are included in an ACF file will be ignored
 by a parser that does not understand them.
 
@@ -231,7 +231,7 @@ the parser will report a syntax error.
 Rules allow the prescribed access if and only if
 all the predicates the rule contains are satisfied.
 - If the rule contains predicates that are unknown to the parser
-(indicating future functionality), then the rule will NOT match, 
+(indicating future functionality), then the rule will NOT match,
 a warning will be output, but will not cause an error as long as the syntax is otherwise correct.
 - If the rule contains predicates that the parser does not recognise
 which are malformed (e.g. missing parentheses),
@@ -241,8 +241,8 @@ without breaking older clients or giving those older clients elevated privileges
 :::
 
 Each IOC record contains a field ASG, which specifies the name of the ASG
-to which the record belongs. 
-If this field is null or specifies a group which is not defined 
+to which the record belongs.
+If this field is null or specifies a group which is not defined
 in the access security file then the record is placed in group DEFAULT.
 
 The access privilege for a channel access or pvAccess client is determined as follows:
@@ -270,8 +270,10 @@ is determined by the first WRITE rule that passes the rule checks.
 ### Checking Hostname Against DNS
 
 
-Before EPICS Base release 7.0.3.1, host names given in a HAG entry of an IOC's 
-Access Security Configuration File (ACF) were compared against the hostname provided by the CA client at connection time, which may or may not be the actual name of the host that the client is running on. 
+Before EPICS Base release 7.0.3.1, host names given in a HAG entry of an IOC's
+Access Security Configuration File (ACF) were compared against the hostname provided by the CA
+client at connection time, which may or may not be the actual name of the host that the client
+is running on.
 This allowed rogue clients to pretend to be a different host, and the
 IOC would believe them.
 
@@ -302,7 +304,7 @@ for syntax errors by issuing the command:
    ascheck -S "xxx=yyy,..." < "filename"
 
 This is a Unix command. It displays errors on stdout; if no errors are
-detected it prints nothing. 
+detected it prints nothing.
 The flag `-S` means a set of macro substitutions may appear. This is just like the
 macro substitutions for dbLoadDatabase.
 
@@ -364,7 +366,7 @@ available (provided with iocCore):
       asSubInit
       asSubProcess
 
-:::{note} 
+:::{note}
 These subroutines are automatically registered so there is no need for a
 registrar definition in your database definition file.
 :::
@@ -489,8 +491,13 @@ The same policy will be applied regardless of how a record is accessed (individu
 
 Policy application differs from CA (RSRV) in several ways:
 
-   1. Client hostname is always the numeric IP address. HAG() entries must either contain numeric IP addresses, or **asCheckClientIP=1** flag must be set to translate hostnames into IPs on ACF file load (effects CA server as well). This prevents clients from trivially forging "hostname". 
-   2. In additional to client usernames, UAG definitions may contained items beginning with "role/" which are matched against the list of groups of which the client username is a member. Username to group lookup is done internally to QSRV, and depends on IOC host authentication configuration. Note that this is still based on the client provided username string.
+   1. Client hostname is always the numeric IP address. HAG() entries must either contain
+   numeric IP addresses, or **asCheckClientIP=1** flag must be set to translate hostnames into
+   IPs on ACF file load (effects CA server as well). This prevents clients from trivially forging "hostname".
+   2. In additional to client usernames, UAG definitions may contained items beginning with "role/" which are matched against the list of groups of which the client username is a
+   member. Username to group lookup is done internally to QSRV, and depends on IOC host
+   authentication configuration. Note that this is still based on the client provided username
+   string.
 
   UAG(special) {
      someone, "role/op"
@@ -571,12 +578,12 @@ group (supported on POSIX targets and Windows).
 
 ```{eval-rst}
 .. productionlist::
-   acf_file : `asconfig` 
-   asconfig : `asconfig_item` { asconfig_item } 
-   asconfig_item : `uag_def` 
-   asconfig_item : `hag_def` 
-   asconfig_item : `asg_def`  
-   asconfig_item : `generic_top_level_item` 
+   acf_file : `asconfig`
+   asconfig : `asconfig_item` { asconfig_item }
+   asconfig_item : `uag_def`
+   asconfig_item : `hag_def`
+   asconfig_item : `asg_def` 
+   asconfig_item : `generic_top_level_item`
 ```
 
 ##### UAG / HAG groups
@@ -602,10 +609,10 @@ group (supported on POSIX targets and Windows).
 
 ```{eval-rst}
 .. productionlist::
-   asg_def : "ASG" `asg_head` [ `asg_body` ] 
-   asg_head : "(" STRING ")" 
-   asg_body : "{" `asg_body_item` { `asg_body_item` } "}" 
-   asg_body_item : `inp_config` | `rule_config` 
+   asg_def : "ASG" `asg_head` [ `asg_body` ]
+   asg_head : "(" STRING ")"
+   asg_body : "{" `asg_body_item` { `asg_body_item` } "}"
+   asg_body_item : `inp_config` | `rule_config`
 ```
 
 ###### INP config
@@ -620,7 +627,7 @@ group (supported on POSIX targets and Windows).
 ```{eval-rst}
 .. productionlist::
    rule_config : "RULE" `rule_head` [ `rule_body` ]
-   rule_head : "(" `rule_head_mandatory` "," `rule_log_option` ")" 
+   rule_head : "(" `rule_head_mandatory` "," `rule_log_option` ")"
    rule_head : "(" `rule_head_mandatory` ")"
    rule_head_mandatory : INT "," STRING
    rule_log_option : STRING
@@ -630,10 +637,10 @@ group (supported on POSIX targets and Windows).
 .. productionlist::
    rule_body : "{" `rule_list` "}"
    rule_list : `rule_list_item` { `rule_list_item` }
-   rule_list_item : "UAG" "(" `rule_uag_list` ")" 
-   rule_list_item : "HAG" "(" `rule_hag_list` ")" 
-   rule_list_item : "CALC" "(" STRING ")" 
-   rule_list_item : `rule_generic_block_elem` 
+   rule_list_item : "UAG" "(" `rule_uag_list` ")"
+   rule_list_item : "HAG" "(" `rule_hag_list` ")"
+   rule_list_item : "CALC" "(" STRING ")"
+   rule_list_item : `rule_generic_block_elem`
 ```
 
 ```{eval-rst}
@@ -652,13 +659,13 @@ These are parser-level categories used inside generic constructs:
 
 ```{eval-rst}
 .. productionlist::
-   keyword : "UAG" 
-   keyword : "HAG" 
-   keyword : "CALC" 
+   keyword : "UAG"
+   keyword : "HAG"
+   keyword : "CALC"
    keyword : `non_rule_keyword`
-   non_rule_keyword : "ASG" 
-   non_rule_keyword : "RULE" 
-   non_rule_keyword : INP(link)   
+   non_rule_keyword : "ASG"
+   non_rule_keyword : "RULE"
+   non_rule_keyword : INP(link)
 ```
 (* INPA..INPU *)
 
@@ -666,7 +673,7 @@ These are parser-level categories used inside generic constructs:
 
 ```{eval-rst}
 .. productionlist::
-   generic_head : "(" ")" 
+   generic_head : "(" ")"
    generic_head : "(" `generic_element` ")"
    generic_head :"(" `generic_list` ")"
    generic_list : `generic_element` "," `generic_element` { "," `generic_element` }
@@ -685,7 +692,7 @@ These are parser-level categories used inside generic constructs:
    generic_block : "{" `generic_block_list` "}"
    generic_block_list : `generic_block_elem` { `generic_block_elem` }
    generic_block_elem : `generic_block_elem_name` `generic_head` [ `generic_block` ]
-   generic_block_elem_name : `keyword` 
+   generic_block_elem_name : `keyword`
    generic_block_elem_name :  STRING
 ```
 
@@ -704,7 +711,7 @@ where
 
 ```{eval-rst}
 .. productionlist::
-   generic_list_block : "{" `generic_element` "}" "{" `generic_list` "}" ;
+   generic_list_block : "{" `generic_element` "}" "{" `generic_list` "}"
 ```
 
 ###### Generic blocks inside RULE bodies
