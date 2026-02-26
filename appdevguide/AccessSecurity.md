@@ -582,7 +582,7 @@ group (supported on POSIX targets and Windows).
    asconfig : `asconfig_item` { asconfig_item }
    asconfig_item : `uag_def`
    asconfig_item : `hag_def`
-   asconfig_item : `asg_def` 
+   asconfig_item : `asg_def`
    asconfig_item : `generic_top_level_item`
 ```
 
